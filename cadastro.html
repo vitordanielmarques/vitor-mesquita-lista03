@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Alunos</title>
+  <style>
+        body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        }
+        form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-width: 350px;
+        }
+        input, select, button {
+        padding: 8px;
+        }
+        table {
+        margin-top: 20px;
+        border-collapse: collapse;
+        width: 100%;
+        }
+        th, td {
+        border: 1px solid gray;
+        padding: 8px;
+        text-align: left;
+        }
+        #mensagem {
+        color: red;
+        }
+        pre {
+        background-color: #eee;
+        padding: 10px;
+        overflow-x: auto;
+        }
+    </style>
+    </head>
+    <body>
+
+    <h1>Cadastro de Alunos</h1>
+
+    <form id="formCadastro">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="idade">Idade:</label>
+        <input type="number" id="idade" name="idade" min="1" max="120" required>
+
+        <label for="curso">Curso:</label>
+        <select id="curso" name="curso" required>
+        <option value="" disabled selected>Selecione um curso</option>
+        <option value="Computação">Computação</option>
+        <option value="Engenharia">Engenharia</option>
+        <option value="Sistemas de Informação">Sistemas de Informação</option>
+        </select>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <h2>Objeto JSON</h2>
+    <pre id="json"></pre>
+
+    <h2>Alunos cadastrados</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>E-mail</th>
+            <th>Idade</th>
+            <th>Curso</th>
+        </tr>
+        </thead>
+        <tbody id="tabelaAlunos">
+        </tbody>
+    </table>
+
+    <script>
+        const form = document.getElementById("formCadastro");
+        const jsonPre = document.getElementById("json");
+        const tabelaBody = document.getElementById("tabelaAlunos");
+
+        form.addEventListener("submit", function(evento) {
+        // 1. Evita o recarregamento da página ao enviar o formulário
+        evento.preventDefault();
+
+        // 2. Coleta os dados usando FormData
+        const formData = new FormData(form);
+        const dadosObjeto = {};
+
+        // Transforma o FormData em um objeto iterando com for...of
+        for (const [chave, valor] of formData.entries()) {
+            dadosObjeto[chave] = valor;
+        }
+
+        // 3. Exibe o objeto convertido formatado dentro da tag <pre id="json">
+        jsonPre.textContent = JSON.stringify(dadosObjeto, null, 2);
+
+        // 4. Adiciona uma nova linha na tabela com os dados cadastrados
+        const novaLinha = document.createElement("tr");
+        novaLinha.innerHTML = `
+            <td>${dadosObjeto.nome}</td>
+            <td>${dadosObjeto.email}</td>
+            <td>${dadosObjeto.idade}</td>
+            <td>${dadosObjeto.curso}</td>
+        `;
+
+        tabelaBody.appendChild(novaLinha);
+
+        // Opcional: limpa os campos do formulário após o cadastro
+        form.reset();
+        });
+    </script>
+
+    </body>
+</html>
