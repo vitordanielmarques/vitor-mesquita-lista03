@@ -62,31 +62,31 @@
         let htmlOptions = `<option value="">Selecione um post</option>`; // Primeira opção vazia
 
         posts.forEach(post => {
-            htmlOptions += `<option value="${post.id}">${post.title}</option>`; // value=id, texto=title[cite: 3]
+            htmlOptions += `<option value="${post.id}">${post.title}</option>`; // value=id, texto=title
         });
 
         selectPost.innerHTML = htmlOptions;
         }
 
-        // 2. Evento 'change' ao trocar de opção[cite: 3]
+        // 2. Evento 'change' ao trocar de opção
         selectPost.addEventListener("change", function() {
         const postIdSelecionado = Number(selectPost.value);
 
-        // Se a opção padrão "Selecione um post" for escolhida, esvazia a área[cite: 3]
+        //se a opção padrão "Selecione um post" for escolhida, esvazia a área de comentários
         if (!postIdSelecionado) {
             areaComentarios.innerHTML = "";
             return;
         }
 
-        // Filtra os comentários correspondentes ao postId selecionado
+        //filtra os comentários correspondentes ao postId selecionado
         const comentariosFiltrados = comentarios.filter(
             comentario => comentario.postId === postIdSelecionado
         );
 
-        // Monta o título dinâmico com a contagem: "Comentários (X)"[cite: 3]
-        let htmlContent = `<h2>Comentários (${comentariosFiltrados.length})</h2>`;[cite: 3]
+        //monta o título dinâmico com a contagem: "Comentários (X)"
+        let htmlContent = `<h2>Comentários (${comentariosFiltrados.length})</h2>`;
 
-        // Renderiza cada comentário com nome, e-mail e texto[cite: 3]
+        //renderiza cada comentário com nome, e-mail e texto
         comentariosFiltrados.forEach(c => {
             htmlContent += `
             <div class="comentario-card">
