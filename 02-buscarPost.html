@@ -43,19 +43,15 @@
             const divResultado = document.getElementById("resultado");
             const valorInput = input.value.trim();
 
-            // Regra 1: Validação de campo vazio
             if (valorInput === "") {
                 divResultado.innerHTML = `<p class="erro">Digite um ID.</p>`;
                 return;
         }
 
-        // Converte o valor do input para número para comparar no array
         const idBuscado = Number(valorInput);
 
-        // Busca o post no array pelo id usando Array.prototype.find
         const postEncontrado = posts.find(post => post.id === idBuscado);
 
-        // Regra 2: Post encontrado vs. Não encontrado
         if (postEncontrado) {
             divResultado.innerHTML = `
             <h2>${postEncontrado.title}</h2>
